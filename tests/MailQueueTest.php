@@ -44,6 +44,18 @@ class MailQueueTest extends Unittest_TestCase {
 	}
 
 	/**
+	 * Sending from an empty queue shouldn't do anything.
+	 * 
+	 */
+	public function test_send_empty_queue()
+	{
+		$mq = new MailQueue;
+		$this->assertCount(0, $mq->getPending());
+		$mq->send(1);
+		$this->assertCount(0, $mq->getPending());
+	}
+
+	/**
 	 * Add a message to the queue, and 'send' it.
 	 * The queue length should decrease.
 	 */
@@ -54,9 +66,9 @@ class MailQueueTest extends Unittest_TestCase {
 		$mq = new MailQueue;
 		$mq->add($message1);
 		$mq->add($message2);
-		$this->assertEquals(2, count($mq->getPending()));
+		$this->assertCount(2, $mq->getPending());
 		$mq->send(1);
-		$this->assertEquals(1, count($mq->getPending()));
+		$this->assertCount(1, $mq->getPending());
 	}
 
 }

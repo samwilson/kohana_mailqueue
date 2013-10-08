@@ -42,6 +42,7 @@ class Core_MailQueue {
 		while ($count > 0)
 		{
 			$message = Arr::get($this->getPending(), 0);
+			if ( ! $message) return;
 			$mailer = Swift_Mailer::newInstance($this->getTransport());
 			$mailer->send($message->getMessage(), $failures);
 			if (count($failures) > 0)
