@@ -26,7 +26,10 @@ class Controller_MailQueue extends Controller_Template {
 	{
 		$mailqueue = new MailQueue();
 		$this->template->content = '';
-		$this->template->mailqueue = $mailqueue->get();
+
+		$table = View::factory('mailqueue/table');
+		$table->mails = $mailqueue->get();
+		$this->template->content = $table->render();
 	}
 
 }

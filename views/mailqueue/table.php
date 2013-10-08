@@ -1,24 +1,24 @@
-<table class="mailqueue table">
-	<thead>
-		<tr>
-			<th>From</th>
-			<th>To</th>
-			<th>Date Queued</th>
-			<th>Date Sent</th>
-			<th>Status</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach ($mails as $mail): ?>
-		<tr>
-			<td><?=$mail->getFrom()?></td>
-			<td><?=$mail->getTo()?></td>
-			<td><?=$mail->getDateQueued()?></td>
-			<td><?=$mail->getDateSent()?></td>
-			<td class="status <?=URL::title($mail->getStatus())?>">
-				<?=$mail->getStatus()?>
-			</td>
-		</tr>
-		<?php endforeach ?>
-	</tbody>
-</table>
+<div class="mailqueue">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Date Queued</th>
+				<th>Date Sent</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($mails as $mail): ?>
+			<tr class="<?=URL::title($mail->getStatus())?>">
+				<td><?=$mail->getId()?></td>
+				<td><?=$mail->getDateQueued()?></td>
+				<td><?=$mail->getDateSent()?></td>
+				<td class="status">
+					<?=$mail->getStatus()?>
+				</td>
+			</tr>
+			<?php endforeach ?>
+		</tbody>
+	</table>
+</div>
