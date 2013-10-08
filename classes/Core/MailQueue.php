@@ -4,6 +4,9 @@ class Core_MailQueue {
 
 	protected $table_name = 'mailqueue_messages';
 
+	/** @var Swift_Transport The transport to use to send mail. */
+	protected $transport;
+
 	public function add(Swift_Message $message)
 	{
 		$values = array(
@@ -16,14 +19,55 @@ class Core_MailQueue {
 			->execute();
 	}
 
-	public function get()
+	public function get($pending_only = FALSE)
 	{
 		$message_class = 'MailQueue_Message';
 		$mailqueue = DB::select()
 				->from($this->table_name)
-				->as_object($message_class)
+				->as_object($message_class);
+		if ($pending_only)
+		{
+			$mailqueue->where('datetime_sent', 'IS', NULL);
+		}
+		return $mailqueue->execute();
+	}
+
+	public function getPending()
+	{
+		return $this->get(TRUE);
+	}
+
+	public function send($count)
+	{
+		while ($count > 0)
+		{
+			$message = Arr::get($this->getPending(), 0);
+			$mailer = Swift_Mailer::newInstance($this->getTransport());
+			$mailer->send($message->getMessage(), $failures);
+			if (count($failures) > 0)
+			{
+				throw new Exception(print_r($failures, true));
+			}
+			$count--;
+			DB::update($this->table_name)
+				->set(array('datetime_sent' => DB::expr('NOW()')))
+				->where('id', '=', $message->getId())
 				->execute();
-		return $mailqueue;
+		}
+	}
+
+	public function setTransport(Swift_Transport $transport)
+	{
+		$this->transport = $transport;
+	}
+
+	public function getTransport()
+	{
+		if ( ! $this->transport)
+		{
+			$this->transport = new Swift_NullTransport();
+		}
+		return $this->transport;
 	}
 
 }

@@ -11,6 +11,8 @@ This module uses the Swiftmailer library.
 Installation
 ------------
 
+Create the database table (idempotent task):
+
 	php index.php mailqueue:upgrade
 
 Usage
