@@ -1,7 +1,9 @@
 {
 	"name": "samwilson/kohana_mailqueue",
+	"type": "kohana-module",
 	"description": "Kohana module to queue, send, and log email messages from an application.",
 	"license": "GPL-3.0+",
+	"keywords": ["kohana", "mail", "queue", "email", "swiftmailer"],
 	"authors": [
 		{
 			"name": "Sam Wilson",
