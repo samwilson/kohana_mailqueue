@@ -5,18 +5,27 @@
 				<th>ID</th>
 				<th>Date Queued</th>
 				<th>Date Sent</th>
-				<th>Status</th>
+				<th>To</th>
+				<th>Subject</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($mails as $mail): ?>
-			<tr class="<?=URL::title($mail->getStatus())?>">
+			<?php foreach ($mails as $mail): $msg = $mail->getMessage(); ?>
+			<tr>
 				<td><?=$mail->getId()?></td>
-				<td><?=$mail->getDateQueued()?></td>
-				<td><?=$mail->getDateSent()?></td>
-				<td class="status">
-					<?=$mail->getStatus()?>
+				<td><?=$mail->getDatetimeQueued()?></td>
+				<td><?=$mail->getDatetimeSent()?></td>
+				<td>
+					<?php
+					foreach ($msg->getTo() as $email=>$name)
+					{
+						if ($name) echo '&lt;'.$name.'&gt; ';
+						echo $email;
+					}
+					?>
 				</td>
+				<td><?php echo $msg->getSubject() ?></td>
+				<td><pre><?php echo $msg ?></pre></td>
 			</tr>
 			<?php endforeach ?>
 		</tbody>

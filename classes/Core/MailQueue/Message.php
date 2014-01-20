@@ -6,6 +6,7 @@ class Core_MailQueue_Message {
 
 	public function __construct()
 	{
+		// Required, so can be used for DB result type.
 	}
 
 	/**
@@ -26,6 +27,11 @@ class Core_MailQueue_Message {
 	public function getMessage()
 	{
 		return unserialize($this->message);
+	}
+
+	public function getDatetimeQueued()
+	{
+		return $this->datetime_queued;
 	}
 
 	/**

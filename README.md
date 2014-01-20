@@ -7,12 +7,12 @@ A Mail Queue and Log for Kohana
 
 This module uses the Swiftmailer library.
 
-Version 0.1.2 2014-01-20.
+Version 0.2.0 2014-01-20
 
 Installation
 ------------
 
-1. Add `"samwilson/kohana_mailqueue": "0.1.2"` to your `composer.json`
+1. Add `"samwilson/kohana_mailqueue": "0.2.0"` to your `composer.json`
 2. Run `composer update`
 3. Create the database table (this is an idempotent command):
 	`php index.php mailqueue:upgrade`
@@ -33,7 +33,7 @@ Usage
 
 2. View the queue:
 
-		Request::factory('mailqueue');
+		Request::factory('mailqueue')->execute();
 
 3. Send pending mail:
 

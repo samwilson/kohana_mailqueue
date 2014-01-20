@@ -22,7 +22,7 @@ class Core_MailQueue {
 	public function get($pending_only = FALSE)
 	{
 		$message_class = 'MailQueue_Message';
-		$mailqueue = DB::select()
+		$mailqueue = DB::select('id', 'message', 'datetime_queued', 'datetime_sent')
 				->from($this->table_name)
 				->as_object($message_class);
 		if ($pending_only)
@@ -57,10 +57,10 @@ class Core_MailQueue {
 				return;
 			}
 			$mailer = Swift_Mailer::newInstance($this->getTransport());
-			$mailer->send($message->getMessage(), $failures);
-			if (count($failures) > 0)
+			$mailer->send($message->getMessage(), $failedRecipients);
+			if (count($failedRecipients) > 0)
 			{
-				throw new Exception(print_r($failures, true));
+				throw new Exception('Failed recipients: '.print_r($failedRecipients, true));
 			}
 			$count--;
 			DB::update($this->table_name)
