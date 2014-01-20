@@ -1,4 +1,3 @@
-===============================
 A Mail Queue and Log for Kohana
 ===============================
 
@@ -8,12 +7,12 @@ A Mail Queue and Log for Kohana
 
 This module uses the Swiftmailer library.
 
-Version 0.1 2014-01-20.
+Version 0.1.0 2014-01-20.
 
 Installation
 ------------
 
-Add `"samwilson/kohana_mailqueue": "0.1"` to your `composer.json`
+Add `"samwilson/kohana_mailqueue": "0.1.0"` to your `composer.json`
 
 Run `composer update`
 
