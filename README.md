@@ -8,24 +8,46 @@ A Mail Queue and Log for Kohana
 
 This module uses the Swiftmailer library.
 
+Version 0.1 2014-01-20.
+
 Installation
 ------------
 
-Create the database table (idempotent task):
+Add `"samwilson/kohana_mailqueue": "0.1"` to your `composer.json`
+
+Run `composer update`
+
+Create the database table (this is an idempotent command):
 
 	php index.php mailqueue:upgrade
 
 Usage
 -----
 
-Add to the queue:
+1. Add to the queue:
 
 	MailQueue::add($message);
 
-View the queue:
+For documentation about how to create messages,
+see http://swiftmailer.org/docs/messages.html
+
+2. View the queue:
 
 	Request::factory('mailqueue');
 
-Send pending mail:
+3. Send pending mail:
 
-	php index.php mailqueue:send
+	php index.php mailqueue:send --count=n
+
+Where *n* is an integer number of messages to send in this run.
+
+Testing
+-------
+
+Integration tests can be run in the usual Kohana fashion. From the base
+application directory, run
+
+	./vendor/bin/phpunit --group=mailqueue
+
+These tests require a database connection to be set up in `config/database.php`
+and MailQueue to be installed ([see above](#installation)).

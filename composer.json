@@ -1,0 +1,24 @@
+{
+	"name": "samwilson/kohana_mailqueue",
+	"description": "Kohana module to queue, send, and log email messages from an application.",
+	"license": "GPL-3.0+",
+	"authors": [
+		{
+			"name": "Sam Wilson",
+			"email": "sam@samwilson.id.au",
+			"homepage": "http://samwilson.id.au/",
+			"role": "developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/samwilson/kohana_mailqueue/issues",
+		"forum": "http://forum.kohanaframework.org",
+		"source": "https://github.com/samwilson/kohana_mailqueue"
+	},
+	"require": {
+		"swiftmailer/swiftmailer": "~5.0",
+		"composer/installers": "~1.0",
+		"kohana/core": ">=3.3",
+		"php": ">=5.3.3"
+	}
+}

@@ -37,12 +37,25 @@ class Core_MailQueue {
 		return $this->get(TRUE);
 	}
 
+	/**
+	 * Send some number of messages from the queue.
+	 *
+	 * Call MailQueue::setTransport() with a valid SwiftTransport object before
+	 * this or the NullTransport will be used and nothing will actually be sent.
+	 *
+	 * @param int $count The number of messages to send from the queue.
+	 * @return void
+	 * @throws Exception If the mailer is unable to send a message.
+	 */
 	public function send($count)
 	{
 		while ($count > 0)
 		{
 			$message = Arr::get($this->getPending(), 0);
-			if ( ! $message) return;
+			if ( ! $message)
+			{
+				return;
+			}
 			$mailer = Swift_Mailer::newInstance($this->getTransport());
 			$mailer->send($message->getMessage(), $failures);
 			if (count($failures) > 0)

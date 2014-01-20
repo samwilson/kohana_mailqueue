@@ -16,6 +16,10 @@ defined('SYSPATH') OR die('No direct script access.');
  */
 class Task_MailQueue_Send extends Minion_Task {
 
+	protected $_options = array(
+		'count' => 1,
+	);
+
 	/**
 	 * Send a message.
 	 *
@@ -24,7 +28,7 @@ class Task_MailQueue_Send extends Minion_Task {
 	protected function _execute(array $params)
 	{
 		$mq = new MailQueue;
-		$mq->send(1);
+		$mq->send($params['count']);
 	}
 
 }
