@@ -7,6 +7,7 @@
 				<th>Date Sent</th>
 				<th>To</th>
 				<th>Subject</th>
+				<th>Message</th>
 			</tr>
 		</thead>
 		<tbody>
