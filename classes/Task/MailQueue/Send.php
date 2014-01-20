@@ -27,7 +27,12 @@ class Task_MailQueue_Send extends Minion_Task {
 	 */
 	protected function _execute(array $params)
 	{
+		$config = Kohana::$config->load('mailqueue');
+		$transport_class = $config->get('transport.class', 'mail');
+		$transport_classname = 'Swift_'.ucfirst($transport_class).'Transport';
+		$transport = $transport_classname::newInstance();
 		$mq = new MailQueue;
+		$mq->setTransport($transport);
 		$mq->send($params['count']);
 	}
 

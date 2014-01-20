@@ -7,38 +7,38 @@ A Mail Queue and Log for Kohana
 
 This module uses the Swiftmailer library.
 
-Version 0.1.1 2014-01-20.
+Version 0.1.2 2014-01-20.
 
 Installation
 ------------
 
-Add `"samwilson/kohana_mailqueue": "0.1.1"` to your `composer.json`
+1. Add `"samwilson/kohana_mailqueue": "0.1.2"` to your `composer.json`
+2. Run `composer update`
+3. Create the database table (this is an idempotent command):
+	`php index.php mailqueue:upgrade`
 
-Run `composer update`
+Configuration
+-------------
 
-Create the database table (this is an idempotent command):
-
-	php index.php mailqueue:upgrade
+Copy `MODPATH/kohana_mailqueue/config/mailqueue.php` to `APPPATH/config/mailqueue.php` and edit the values therein.
 
 Usage
 -----
 
 1. Add to the queue:
 
-	MailQueue::add($message);
-
-For documentation about how to create messages,
-see http://swiftmailer.org/docs/messages.html
+		$mq = new MailQueue;
+		$mq->add($message);
+	Messages are explained in [the Swiftmailer documentation](http://swiftmailer.org/docs/messages.html).
 
 2. View the queue:
 
-	Request::factory('mailqueue');
+		Request::factory('mailqueue');
 
 3. Send pending mail:
 
-	php index.php mailqueue:send --count=n
-
-Where *n* is an integer number of messages to send in this run.
+		php index.php mailqueue:send --count=n
+	Where *n* is an integer number of messages to send in this run.
 
 Testing
 -------
