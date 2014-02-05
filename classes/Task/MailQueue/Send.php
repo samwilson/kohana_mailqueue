@@ -8,6 +8,9 @@ defined('SYSPATH') OR die('No direct script access.');
 /**
  * Process the mail queue.
  *
+ * Options:
+ *  - count: how many messages to send (default 1)
+ *
  * @package    Kohana
  * @category   Mail
  * @author     Sam Wilson
@@ -19,6 +22,20 @@ class Task_MailQueue_Send extends Minion_Task {
 	protected $_options = array(
 		'count' => 1,
 	);
+
+	/**
+	 * Validate the CLI options.
+	 *
+	 * @param Validation The validation object to add rules to
+	 *
+	 * @return Validation
+	 */
+	public function build_validation(Validation $validation)
+	{
+		$val = parent::build_validation($validation);
+		$val->rule('count', 'numeric');
+		return $val;
+	}
 
 	/**
 	 * Send a message.

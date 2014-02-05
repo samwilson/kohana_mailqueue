@@ -19,8 +19,13 @@
 	},
 	"require": {
 		"swiftmailer/swiftmailer": "~5.0",
+		"kohana/minion": "~3.3.0",
+		"kohana/database": "~3.3.0",
+		"kohana/core": "~3.3.0",
 		"composer/installers": "~1.0",
-		"kohana/core": ">=3.3",
 		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~3.0"
 	}
 }

@@ -26,7 +26,11 @@ class Core_MailQueue_Message {
 	 */
 	public function getMessage()
 	{
-		return unserialize($this->message);
+		try {
+			return unserialize($this->message);
+		} catch (ErrorException $e) {
+			throw new Exception('Unable to unserialize mailqueue message #'.$this->getId(), NULL, $e);
+		}
 	}
 
 	public function getDatetimeQueued()

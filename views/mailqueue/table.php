@@ -26,7 +26,11 @@
 					?>
 				</td>
 				<td><?php echo $msg->getSubject() ?></td>
-				<td><pre><?php echo $msg ?></pre></td>
+				<td>
+					<?= ($msg->getContentType()=='text/html')
+						? $msg->getBody()
+						: HTML::entities($msg->getBody()) ?>
+				</td>
 			</tr>
 			<?php endforeach ?>
 		</tbody>
